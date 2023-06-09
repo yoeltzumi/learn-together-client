@@ -1,8 +1,8 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
 import LearnTogetherTitle from "../../components/LearnTogetherTitle/LearnTogetherTitle";
 import KeyTable from "../../components/KeyTable/KeyTable";
 
-const HomePage = () => {
+const HomePage = ({ navigation }) => {
   const tableContent = [
     "הודעות",
     "מערכת שעות",
@@ -25,7 +25,7 @@ const HomePage = () => {
           })}
         </View>
       );
-      grid = [...grid, row]
+      grid = [...grid, row];
     }
     return grid;
   };
@@ -33,9 +33,13 @@ const HomePage = () => {
   return (
     <View>
       <LearnTogetherTitle />
+      <Button
+        title="שכחת סיסמה?"
+        onPress={() => navigation.navigate("ForgotPassword")}
+      />
       <View style={styles.container}>
         <Text style={styles.goodMorningTitle}>בוקר טוב</Text>
-        {createTable()}
+        {/* {createTable()} */}
       </View>
     </View>
   );

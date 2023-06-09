@@ -1,13 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomePage from './src/screens/HomePage/HomePage';
-import MessageBoard from './src/screens/MessagesBoard/MessageBoard';
-import HookExample from './src/components/HookExample/HookExample';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen';
-import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import AppNavigator from "./src/AppNavigator"
 
 export default function App() {
   return (
-    <ForgotPassword />
+    <SafeAreaProvider>
+      <AppNavigator />
+    </SafeAreaProvider>
   );
 }

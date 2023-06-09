@@ -1,9 +1,26 @@
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { Text, Input, Icon, Button } from "@rneui/themed";
+import { sendForgotPassword } from "../../api/password";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Snackbar } from "react-native-paper";
 
-const ForgotPassword = () => {
+import logo from "../../../assets/smart-school-logo.jpg";
+
+const ForgotPassword = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showFailure, setShowFailure] = useState(false);
+  const [canSend, setCanSend] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setCanSend(email.includes("@") && email.includes(".") && email.length > 4);
+  }, [email]);
+
   return (
-    <View>
+    <View style={styles.container}>
+      {/* <Image style={styles.logo} source={logo} /> */}
       <View style={styles.textContainer}>
         <Text h1={true} h1Style={styles.title}>
           שחכת סיסמא?
@@ -14,20 +31,68 @@ const ForgotPassword = () => {
       </View>
       <Input
         rightIcon={<Icon name="mail" />}
+        leftIcon={
+          <Icon color={canSend ? "green" : "gray"} name="check-circle" />
+        }
         placeholder="  כתובת מייל"
         containerStyle={styles.input}
+        value={email}
+        onChangeText={(event) => setEmail(event)}
+        errorMessage={errorMessage}
       />
-      <Button
-        buttonStyle={styles.button}
-        titleStyle={styles.buttonTitle}
-        color="#4ACCCC"
-        title="שלח"
-      />
+      {!loading ? (
+        <Button
+          disabled={!canSend}
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+          color="#4ACCCC"
+          title="שלח"
+          onPress={() => {
+            setLoading(true);
+            sendForgotPassword(email)
+              .then(() => {
+                setErrorMessage("");
+                setShowSuccess(true);
+                setShowFailure(false);
+                setEmail("");
+                setLoading(false);
+              })
+              .catch((err) => {
+                setErrorMessage(err.response.data.message);
+                setShowSuccess(false);
+                setShowFailure(true);
+                setLoading(false);
+              });
+          }}
+        />
+      ) : (
+        <ActivityIndicator style={styles.loadingCircle} size="large" />
+      )}
+      <Snackbar
+        visible={showSuccess}
+        onDismiss={() => setShowSuccess((oldValue) => !oldValue)}
+        duration={6000}
+        style={{ ...styles.alert, backgroundColor: "green" }}
+      >
+        A reset email has been sent
+      </Snackbar>
+      <Snackbar
+        visible={showFailure}
+        onDismiss={() => setShowFailure((oldValue) => !oldValue)}
+        duration={6000}
+        style={{ ...styles.alert, backgroundColor: "red" }}
+      >
+        Oops... There is a problem
+      </Snackbar>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   title: { fontWeight: "normal", fontSize: 38 },
   textContainer: {
     marginRight: 20,
@@ -48,7 +113,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 10,
     marginTop: 20,
-    height: 60
+    height: 60,
+  },
+  alert: {
+    position: "absolute",
+    bottom: 0,
+  },
+  loadingCircle: {
+    marginTop: 20,
   },
 });
 
