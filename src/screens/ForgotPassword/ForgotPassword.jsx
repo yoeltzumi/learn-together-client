@@ -4,8 +4,6 @@ import { sendForgotPassword } from "../../api/password";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
 
-import logo from "../../../assets/smart-school-logo.jpg";
-
 const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -20,7 +18,6 @@ const ForgotPassword = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Image style={styles.logo} source={logo} /> */}
       <View style={styles.textContainer}>
         <Text h1={true} h1Style={styles.title}>
           שחכת סיסמא?
@@ -74,7 +71,7 @@ const ForgotPassword = ({ navigation }) => {
         duration={6000}
         style={{ ...styles.alert, backgroundColor: "green" }}
       >
-        A reset email has been sent
+        מייל איפוס סיסמא נשלח
       </Snackbar>
       <Snackbar
         visible={showFailure}
@@ -82,7 +79,7 @@ const ForgotPassword = ({ navigation }) => {
         duration={6000}
         style={{ ...styles.alert, backgroundColor: "red" }}
       >
-        Oops... There is a problem
+        אופס... קיימת בעיה
       </Snackbar>
     </View>
   );
@@ -118,6 +115,7 @@ const styles = StyleSheet.create({
   alert: {
     position: "absolute",
     bottom: 0,
+    textAlign: "right"
   },
   loadingCircle: {
     marginTop: 20,

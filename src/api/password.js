@@ -1,8 +1,10 @@
 import axios from "axios";
 
+import { REACT_APP_API_URL } from "@env";
+
 const sendForgotPassword = async (email) => {
   const result = await axios.post(
-    "http://192.168.14.156:3001/auth/forgot-password",
+    `${REACT_APP_API_URL}/auth/forgot-password`,
     {
       email: email,
     }
