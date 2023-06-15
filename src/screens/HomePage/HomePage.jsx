@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet, Button } from "react-native";
-import LearnTogetherTitle from "../../components/LearnTogetherTitle/LearnTogetherTitle";
 import KeyTable from "../../components/KeyTable/KeyTable";
 
 const HomePage = ({ navigation }) => {
@@ -32,7 +31,6 @@ const HomePage = ({ navigation }) => {
 
   return (
     <View>
-      <LearnTogetherTitle />
       <Button
         title="שכחת סיסמה?"
         onPress={() => navigation.navigate("ForgotPassword")}
