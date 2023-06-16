@@ -19,7 +19,12 @@ const AppNavigator = () => {
           headerTransparent: true,
         }}
       >
-        <Stack.Screen name="Home" component={LoginScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeScreen"
+          component={HomePage}
+        />
         <Stack.Screen
           options={{
             headerRight: () => (
