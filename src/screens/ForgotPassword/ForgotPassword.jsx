@@ -4,7 +4,7 @@ import { sendForgotPassword } from "../../api/password";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
 
-const ForgotPassword = ({ navigation }) => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
@@ -20,7 +20,7 @@ const ForgotPassword = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text h1={true} h1Style={styles.title}>
-          שחכת סיסמא?
+          שכחת סיסמא?
         </Text>
         <Text h1={true} h1Style={styles.title}>
           תוכל לאפס אותה בקלות
@@ -67,7 +67,7 @@ const ForgotPassword = ({ navigation }) => {
       )}
       <Snackbar
         visible={showSuccess}
-        onDismiss={() => setShowSuccess((oldValue) => !oldValue)}
+        onDismiss={() => setShowSuccess((oldShowSuccess) => !oldShowSuccess)}
         duration={6000}
         style={{ ...styles.alert, backgroundColor: "green" }}
       >

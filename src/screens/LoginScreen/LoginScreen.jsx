@@ -1,64 +1,166 @@
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import LearnTogetherTitle from "../../components/LearnTogetherTitle/LearnTogetherTitle";
-import { ButtonGroup } from "@rneui/themed";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Image } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-const LoginScreen = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+import logo from "../../../assets/smart-school-logo.jpg";
+import { Input } from "@rneui/base";
+import { Snackbar } from "react-native-paper";
+import { REACT_APP_API_URL } from "@env";
+import { login } from "../../api/auth";
+import { KeyboardAvoidingView } from "react-native";
+import { Platform } from "react-native";
+
+const LoginScreen = ({ navigation }) => {
+  const [pickedRolesIndex, setPickedRolesIndex] = useState(null);
   const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorSnackbar, setErrorSnackbar] = useState(null);
 
+  const handleRoleChange = (index) => {
+    setPickedRolesIndex(index);
+  };
+
+  const handleLogin = () => {
+    if (id === "" || password === "") {
+      setErrorSnackbar("מייל או סיסמא לא הוזנו במערכת");
+      return;
+    }
+
+    if (pickedRolesIndex === null || pickedRolesIndex === undefined) {
+      setErrorSnackbar("לא נבחר סוג משתמש");
+      return;
+    }
+
+    login(id, password, pickedRolesIndex)
+      .then(() => {
+        navigation.navigate("HomeScreen")
+      })
+      .catch(() => {
+        setErrorSnackbar("שם משתמש או סיסמא לא נכונים");
+      });
+  };
+
+  const usersRoles = ["הורים", "מורים", "תלמידים"];
 
   return (
-    <View style={styles.pageContainer}>
-      <LearnTogetherTitle />
-      <ButtonGroup
-        buttons={["מורים", "הורים", "תלמידים"]}
-        selectedIndex={selectedIndex}
-        onPress={(value) => {
-          setSelectedIndex(value);
-        }}
-        containerStyle={{ marginTop: 20 }}
-      />
-      <Text style={styles.recognizeTitle}>מערכת הזדהות</Text>
-      <TextInput
-        style={styles.idInput}
+    <KeyboardAvoidingView
+      style={styles.pageContainer}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Image style={styles.logo} source={logo} />
+      <View style={styles.rolesContainer}>
+        {usersRoles.map((role, index) => (
+          <TouchableOpacity
+            onPress={() => handleRoleChange(index)}
+            key={index}
+            style={{
+              ...styles.roleContainer,
+              backgroundColor: index === pickedRolesIndex ? "aqua" : "#47CCD0",
+            }}
+          >
+            <Text style={styles.roleText}>{role}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <Text style={styles.welcomeTitle}>ברוכים הבאים</Text>
+
+      <Input
+        rightIcon={<FontAwesome name="user" size={25} />}
         placeholder="תעודת זהות"
         value={id}
-        onChangeText={setId}
-        keyboardType="numeric"
+        onChangeText={(event) => setId(event)}
+        style={{ marginRight: 10 }}
+        inputStyle={{ textAlign: "right" }}
       />
-      <TextInput
-        style={styles.idInput}
-        placeholder="תעודת זהות"
-        value={id}
-        onChangeText={setId}
-        keyboardType="numeric"
+      <Input
+        rightIcon={<FontAwesome name="lock" size={25} />}
+        placeholder="סיסמא"
+        value={password}
+        onChangeText={(event) => setPassword(event)}
+        secureTextEntry={true}
+        inputStyle={{ textAlign: "right" }}
+        style={{ marginRight: 10 }}
       />
-      <Button title="Log In"></Button>
-    </View>
+
+      <Text
+        onPress={() => navigation.navigate("ForgotPassword")}
+        style={styles.forgotPassword}
+      >
+        שכחת סיסמא?
+      </Text>
+      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>התחברות</Text>
+      </TouchableOpacity>
+      <Snackbar
+        visible={errorSnackbar}
+        onDismiss={() => setErrorSnackbar(null)}
+        duration={6000}
+        style={styles.errorSnackbar}
+      >
+        {errorSnackbar}
+      </Snackbar>
+      <View style={{ flex: 1 }} />
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
-  recognizeTitle: {
-    fontSize: 20,
-    color: "blue",
-    textAlign: "center",
-    marginTop: 20,
+  logo: {
+    width: "70%",
+    resizeMode: "contain",
   },
-  idInput: {
-    fontSize: 20,
-    textAlign: "right",
-    marginRight: 15,
-    marginLeft: 15,
-    borderWidth: 1,
-    borderColor: "blue",
-    paddingRight: 5,
+  rolesContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+  },
+  roleContainer: {
     height: 50,
-  }
+    width: 105,
+    borderRadius: 15,
+  },
+  roleText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlignVertical: "center",
+    textAlign: "center",
+    height: "100%",
+  },
+  welcomeTitle: {
+    fontSize: 30,
+    marginTop: 35,
+    marginBottom: 10,
+  },
+  forgotPassword: {
+    alignSelf: "flex-start",
+    marginLeft: 40,
+    fontWeight: "bold",
+    fontSize: 17,
+  },
+  loginButton: {
+    width: "95%",
+    backgroundColor: "#47CCD0",
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 10,
+  },
+  loginButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 25,
+  },
+  errorSnackbar: {
+    backgroundColor: "red",
+  },
 });
 
 export default LoginScreen;
