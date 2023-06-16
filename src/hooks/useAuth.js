@@ -17,7 +17,7 @@ const useAuth = () => {
   const login = async (id, password, role) => {
     try {
       const response = await loginHelper(id, password, role);
-      setUser(response.config.data);
+      setUser(response.data);
     } catch (error) {
       setError("שם משתמש או סיסמא לא נכונים");
     }
