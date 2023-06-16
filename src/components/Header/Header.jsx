@@ -1,29 +1,39 @@
 import * as React from "react";
 import { Header, Icon } from "@rneui/base";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import useAuth from "../../hooks/useAuth";
 import { useEffect } from "react";
 
-export default () => {
-  const { user } = useAuth();
+export default ({ navigation }) => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigation.navigate("LoginScreen");
+  };
 
   return (
     <Header
-      backgroundImageStyle={{}}
       barStyle="default"
       centerComponent={{
         text: user ? `בוקר טוב ${user.firstName}` : "",
         style: { fontWeight: "bold", fontSize: 20 },
       }}
-      centerContainerStyle={{}}
-      containerStyle={{ width: "100%", backgroundColor: "gray", height: 90 }}
-      leftComponent={{ icon: "logout" }}
-      leftContainerStyle={{}}
-      linearGradientProps={{}}
+      containerStyle={{
+        width: "100%",
+        backgroundColor: "white",
+        height: 90,
+        paddingLeft: 20,
+      }}
+      leftComponent={
+        <MaterialCommunityIcons
+          onPress={handleLogout}
+          name="logout"
+          size={30}
+        />
+      }
       placement="center"
       rightComponent={{ icon: "menu" }}
-      rightContainerStyle={{}}
-      statusBarProps={{}}
     />
   );
 };
