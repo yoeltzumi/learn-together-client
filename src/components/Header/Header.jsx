@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Header, Icon } from "@rneui/base";
+import { Header } from "@rneui/base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import useAuth from "../../hooks/useAuth";
-import { useEffect } from "react";
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
 export default ({ navigation }) => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useContext(UserContext);
 
   const handleLogout = () => {
     logout();
@@ -24,6 +24,8 @@ export default ({ navigation }) => {
         backgroundColor: "white",
         height: 90,
         paddingLeft: 20,
+        borderBottomColor: "#F7F7F8",
+        borderBottomWidth: 2,
       }}
       leftComponent={
         <MaterialCommunityIcons

@@ -1,10 +1,13 @@
 import { Text, View, StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { FlatGrid } from "react-native-super-grid";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 import Header from "../../components/Header/Header";
 
 const HomePage = ({ navigation }) => {
+
   const optionsList = [
     {
       title: "מערכת שעות",
@@ -61,14 +64,6 @@ const HomePage = ({ navigation }) => {
           );
         }}
       />
-      {/* {optionsList.map((option, index) => {
-        return (
-          <View key={index} style={styles.grayContainer}>
-            {option.icon}
-            <Text style={styles.grayContainerText}>{option.title}</Text>
-          </View>
-        );
-      })} */}
     </View>
   );
 };

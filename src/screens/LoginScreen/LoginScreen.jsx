@@ -8,23 +8,17 @@ import { Input } from "@rneui/base";
 import { Snackbar } from "react-native-paper";
 
 import logo from "../../../assets/smart-school-logo.jpg";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import { useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 const LoginScreen = ({ navigation }) => {
   const [pickedRolesIndex, setPickedRolesIndex] = useState(null);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [errorSnackbar, setErrorSnackbar] = useState(null);
-  const { isLoading, login, logout, user, error } = useAuth();
-
-  useEffect(() => {
-    setErrorSnackbar(error);
-  }, [error]);
-
-  useEffect(() => {
-    if (user) navigation.navigate("HomeScreen");
-  }, [user]);
+  const { login } = useContext(UserContext);
 
   const handleRoleChange = (index) => {
     setPickedRolesIndex(index);
@@ -41,7 +35,11 @@ const LoginScreen = ({ navigation }) => {
       return;
     }
 
-    login(id, password, pickedRolesIndex);
+    login(id, password, pickedRolesIndex)
+      .then(() => {
+        navigation.navigate("HomeScreen");
+      })
+      .catch((error) => setErrorSnackbar(error.message));
   };
 
   const usersRoles = ["הורים", "מורים", "תלמידים"];
