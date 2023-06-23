@@ -3,11 +3,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { FlatGrid } from "react-native-super-grid";
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
+import { TouchableOpacity } from "react-native";
 
 import Header from "../../components/Header/Header";
 
 const HomePage = ({ navigation }) => {
-
   const optionsList = [
     {
       title: "מערכת שעות",
@@ -28,10 +28,16 @@ const HomePage = ({ navigation }) => {
     {
       title: "מבחנים",
       icon: <MaterialCommunityIcons name="school" size={50} />,
+      navigate: () => {
+        navigation.navigate("TestSchedule");
+      },
     },
     {
       title: "נוכחות",
       icon: <MaterialCommunityIcons name="qrcode" size={50} />,
+      navigate: () => {
+        navigation.navigate("ReportingPresence");
+      },
     },
     {
       title: "התנהגות",
@@ -47,19 +53,40 @@ const HomePage = ({ navigation }) => {
     },
   ];
 
+  const handleLogout = () => {
+    logout();
+    navigation.navigate("LoginScreen");
+  };
+
+  const { user, logout } = useContext(UserContext);
+
   return (
     <View style={styles.pageContainer}>
-      <Header navigation={navigation} />
+      <Header
+        leftIcon={
+          <MaterialCommunityIcons
+            onPress={handleLogout}
+            name="logout"
+            size={30}
+          />
+        }
+        rightIcon={{ icon: "menu" }}
+        title={user ? `בוקר טוב ${user.firstName}` : ""}
+        navigation={navigation}
+      />
       <FlatGrid
         itemDimension={110}
         data={optionsList}
         renderItem={({ item }) => {
           return (
-            <View style={{marginTop: 60}}>
-              <View style={styles.grayContainer}>
+            <View style={{ marginTop: 60 }}>
+              <TouchableOpacity
+                onPress={item.navigate}
+                style={styles.grayContainer}
+              >
                 {item.icon}
                 <Text style={styles.grayContainerText}>{item.title}</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           );
         }}

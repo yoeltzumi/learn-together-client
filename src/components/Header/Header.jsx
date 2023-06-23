@@ -2,21 +2,13 @@ import * as React from "react";
 import { Header } from "@rneui/base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import UserContext from "../../contexts/UserContext";
-import { useContext } from "react";
 
-export default ({ navigation }) => {
-  const { user, logout } = useContext(UserContext);
-
-  const handleLogout = () => {
-    logout();
-    navigation.navigate("LoginScreen");
-  };
-
+export default ({ leftIcon, rightIcon, title }) => {
   return (
     <Header
       barStyle="default"
       centerComponent={{
-        text: user ? `בוקר טוב ${user.firstName}` : "",
+        text: title,
         style: { fontWeight: "bold", fontSize: 20 },
       }}
       containerStyle={{
@@ -27,15 +19,9 @@ export default ({ navigation }) => {
         borderBottomColor: "#F7F7F8",
         borderBottomWidth: 2,
       }}
-      leftComponent={
-        <MaterialCommunityIcons
-          onPress={handleLogout}
-          name="logout"
-          size={30}
-        />
-      }
+      leftComponent={leftIcon}
       placement="center"
-      rightComponent={{ icon: "menu" }}
+      rightComponent={rightIcon}
     />
   );
 };

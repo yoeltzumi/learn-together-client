@@ -8,6 +8,8 @@ import ForgotPassword from "./screens/ForgotPassword/ForgotPassword";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import logo from "../assets/smart-school-logo.jpg";
 import { UserProvider } from "./contexts/UserContext";
+import TestSchedule from "./screens/TestSchedule/TestSchedule";
+import ReportingPresence from "./screens/ReportingPresence/ReportingPresence";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +28,16 @@ const AppNavigator = () => {
             options={{ headerShown: false }}
             name="HomeScreen"
             component={HomePage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="TestSchedule"
+            component={TestSchedule}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ReportingPresence"
+            component={ReportingPresence}
           />
           <Stack.Screen
             options={{
