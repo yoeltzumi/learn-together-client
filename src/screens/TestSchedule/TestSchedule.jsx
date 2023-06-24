@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import TestBox from "../../components/TestBox/TestBox";
 import { StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -37,16 +37,18 @@ const TestSchedule = ({ navigation }) => {
       {loading && (
         <ActivityIndicator style={styles.loadingCircle} size="large" />
       )}
-      {tests.map((test, index) => (
-        <TestBox
-          key={index}
-          subject={test.subject}
-          startDate={test.startDate}
-          endDate={test.endDate}
-          moed={test.moed}
-          dark={index % 2}
-        />
-      ))}
+      <ScrollView>
+        {tests.map((test, index) => (
+          <TestBox
+            key={index}
+            subject={test.subject}
+            startDate={test.startDate}
+            endDate={test.endDate}
+            moed={test.moed}
+            dark={index % 2}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 };
