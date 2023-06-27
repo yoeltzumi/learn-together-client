@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Image } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
-import logo from "../../../assets/smart-school-logo.jpg";
-import { Input } from "@rneui/base";
-import { Snackbar } from "react-native-paper";
-import { REACT_APP_API_URL } from "@env";
-import { login } from "../../api/auth";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
+import { Input } from "@rneui/base";
+import { Snackbar } from "react-native-paper";
+
+import logo from "../../../assets/smart-school-logo.jpg";
+// import useAuth from "../../hooks/useAuth";
+import { useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 const LoginScreen = ({ navigation }) => {
   const [pickedRolesIndex, setPickedRolesIndex] = useState(null);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [errorSnackbar, setErrorSnackbar] = useState(null);
+  const { login } = useContext(UserContext);
 
   const handleRoleChange = (index) => {
     setPickedRolesIndex(index);
@@ -34,11 +37,9 @@ const LoginScreen = ({ navigation }) => {
 
     login(id, password, pickedRolesIndex)
       .then(() => {
-        navigation.navigate("HomeScreen")
+        navigation.navigate("HomeScreen");
       })
-      .catch(() => {
-        setErrorSnackbar("שם משתמש או סיסמא לא נכונים");
-      });
+      .catch((error) => setErrorSnackbar(error.message));
   };
 
   const usersRoles = ["הורים", "מורים", "תלמידים"];

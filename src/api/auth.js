@@ -10,3 +10,8 @@ export const login = async (userId, password, role) => {
   });
   return result;
 };
+
+export const logout = async () => {
+  const result = await axios.post(`${REACT_APP_API_URL}/auth/logout`);
+  return result;
+};
