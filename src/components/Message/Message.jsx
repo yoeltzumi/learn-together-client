@@ -1,37 +1,67 @@
 import { StyleSheet, Text, View } from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Message = ({ title, date, bodyContent }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.date}>{date}</Text>
-      <Text style={styles.body}>{bodyContent}</Text>
+      <View style={{ flex: 9 }}>
+        <View style={styles.rowFlexContainer}>
+          <MaterialCommunityIcons name="email" size={20} style={styles.icon} />
+          <Text style={styles.title}>תזכורת בחינה</Text>
+        </View>
+        <View style={styles.rowFlexContainer}>
+          <Text style={styles.details}>01/07/2023 | 20:05 | האוניברסיטה</Text>
+        </View>
+        <Text numberOfLines={1} style={styles.body}>
+          סולמי מעיין שלום, בשעה 14:45 תתחיל בלהבלה בלהבלהבלהבלהבלה
+        </Text>
+      </View>
+      <MaterialCommunityIcons
+        name="chevron-left"
+        size={40}
+        style={styles.leftArrow}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "aqua",
-    width: "80%",
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "white",
+    width: "95%",
     alignSelf: "center",
-    minHeight: 100,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    marginBottom: 20
+    padding: 5,
+    marginTop: 10,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    elevation: 6,
   },
   title: {
+    color: "#287B9A",
     fontSize: 20,
-    textAlign: "center",
     fontWeight: "bold",
   },
-  date: {
-    textAlign: "right",
-    color: "gray",
+  rowFlexContainer: {
+    display: "flex",
+    flexDirection: "row",
   },
-  body: {
-    fontSize: 17,
+  icon: {
+    verticalAlign: "bottom",
+    marginRight: 3,
+  },
+  details: {
+    color: "#8ACDE6",
+    marginTop: 1,
+    marginBottom: 1,
+  },
+  body: {},
+  leftArrow: {
+    flex: 1,
+    verticalAlign: "middle",
   },
 });
 

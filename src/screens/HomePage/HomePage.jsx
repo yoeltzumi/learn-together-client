@@ -16,10 +16,16 @@ const HomePage = ({ navigation }) => {
     {
       title: "הודעות",
       icon: <MaterialCommunityIcons name="message" size={50} />,
+      navigate: () => {
+        navigation.navigate("MessageBoard");
+      },
     },
     {
       title: 'ש"ב',
       icon: <MaterialCommunityIcons name="book-outline" size={50} />,
+      navigate: () => {
+        navigation.navigate("Homework");
+      },
     },
     {
       title: "תאריכים מיוחדים",
@@ -50,6 +56,9 @@ const HomePage = ({ navigation }) => {
     {
       title: "ציונים",
       icon: <MaterialCommunityIcons name="star" size={50} />,
+      navigate: () => {
+        navigation.navigate("Grades");
+      },
     },
   ];
 

@@ -67,6 +67,7 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.welcomeTitle}>ברוכים הבאים</Text>
 
       <Input
+      keyboardType="numeric"
         rightIcon={<FontAwesome name="user" size={25} />}
         placeholder="תעודת זהות"
         value={id}
