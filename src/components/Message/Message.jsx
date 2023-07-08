@@ -1,19 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Message = ({ title, date, bodyContent }) => {
+const Message = ({ title, date, time, sender, content }) => {
   return (
     <View style={styles.container}>
       <View style={{ flex: 9 }}>
         <View style={styles.rowFlexContainer}>
           <MaterialCommunityIcons name="email" size={20} style={styles.icon} />
-          <Text style={styles.title}>תזכורת בחינה</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.rowFlexContainer}>
-          <Text style={styles.details}>01/07/2023 | 20:05 | האוניברסיטה</Text>
+          <Text style={styles.details}>
+            {date} | {time} | {sender}
+          </Text>
         </View>
         <Text numberOfLines={1} style={styles.body}>
-          סולמי מעיין שלום, בשעה 14:45 תתחיל בלהבלה בלהבלהבלהבלהבלה
+          {content}
         </Text>
       </View>
       <MaterialCommunityIcons
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "95%",
     alignSelf: "center",
-    padding: 5,
+    padding: 10,
     marginTop: 10,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },

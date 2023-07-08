@@ -10,7 +10,7 @@ import logo from "../assets/smart-school-logo.jpg";
 import { UserProvider } from "./contexts/UserContext";
 import TestSchedule from "./screens/TestSchedule/TestSchedule";
 import ReportingPresence from "./screens/ReportingPresence/ReportingPresence";
-import Homewoerk from "./screens/Homework/Homework";
+import Homework from "./screens/Homework/Homework";
 import Grades from "./screens/Grades/Grades";
 import MessageBoard from "./screens/MessageBoard/MessageBoard";
 
@@ -27,11 +27,15 @@ const AppNavigator = () => {
           }}
         >
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="Homework" component={Homewoerk} />
           <Stack.Screen
             options={{ headerShown: false }}
             name="HomeScreen"
             component={HomePage}
+          />
+          <Stack.Screen
+            name="Homework"
+            component={Homework}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             options={{ headerShown: false }}

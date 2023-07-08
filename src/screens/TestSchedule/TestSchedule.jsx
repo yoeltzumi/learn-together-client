@@ -6,7 +6,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Header from "../../components/Header/Header";
 import { useEffect, useState } from "react";
 import { getMyTests } from "../../api/tests";
-import { ActivityIndicator } from "react-native-paper";
+import LoadingCircle from "../../components/LoadingCircle/LoadingCircle";
+import ArrowWithLogo from "../../components/ArrowWithLogo/ArrowWithLogo";
 
 const TestSchedule = ({ navigation }) => {
   const [tests, setTests] = useState([]);
@@ -24,19 +25,12 @@ const TestSchedule = ({ navigation }) => {
   return (
     <View style={styles.pageContainer}>
       <Header
-        leftIcon={{ icon: "menu" }}
-        rightIcon={
-          <MaterialCommunityIcons
-            onPress={() => navigation.goBack()}
-            name="arrow-right"
-            size={30}
-          />
-        }
+        rightIcon={<ArrowWithLogo navigation={navigation} />}
         title={"בחינות"}
       />
-      {loading && (
-        <ActivityIndicator style={styles.loadingCircle} size="large" />
-      )}
+
+      <LoadingCircle loading={loading} />
+
       <ScrollView>
         {tests.map((test, index) => (
           <TestBox
@@ -55,9 +49,6 @@ const TestSchedule = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   pageContainer: { flex: 1 },
-  loadingCircle: {
-    marginTop: 10,
-  },
 });
 
 export default TestSchedule;
