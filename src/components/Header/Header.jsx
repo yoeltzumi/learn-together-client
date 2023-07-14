@@ -1,7 +1,5 @@
 import * as React from "react";
 import { Header } from "@rneui/base";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import UserContext from "../../contexts/UserContext";
 
 export default ({ leftIcon, rightIcon, title }) => {
   return (

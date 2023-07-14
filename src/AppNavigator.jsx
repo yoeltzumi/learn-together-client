@@ -13,6 +13,8 @@ import ReportingPresence from "./screens/ReportingPresence/ReportingPresence";
 import Homework from "./screens/Homework/Homework";
 import Grades from "./screens/Grades/Grades";
 import MessageBoard from "./screens/MessageBoard/MessageBoard";
+import SpecialDates from "./screens/SpecialDates/SpecialDates";
+import Behavior from "./screens/Behavior/Behavior";
 
 const Stack = createStackNavigator();
 
@@ -38,9 +40,19 @@ const AppNavigator = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Behavior"
+            component={Behavior}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             options={{ headerShown: false }}
             name="Grades"
             component={Grades}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="SpecialDates"
+            component={SpecialDates}
           />
           <Stack.Screen
             options={{ headerShown: false }}

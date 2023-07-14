@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.welcomeTitle}>ברוכים הבאים</Text>
 
       <Input
-      keyboardType="numeric"
+        keyboardType="numeric"
         rightIcon={<FontAwesome name="user" size={25} />}
         placeholder="תעודת זהות"
         value={id}
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 10,
+    marginBottom: 10,
   },
   loginButtonText: {
     color: "white",

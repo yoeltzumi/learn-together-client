@@ -30,6 +30,9 @@ const HomePage = ({ navigation }) => {
     {
       title: "תאריכים מיוחדים",
       icon: <MaterialCommunityIcons name="calendar-star" size={50} />,
+      navigate: () => {
+        navigation.navigate("SpecialDates");
+      },
     },
     {
       title: "מבחנים",
@@ -48,6 +51,9 @@ const HomePage = ({ navigation }) => {
     {
       title: "התנהגות",
       icon: <MaterialCommunityIcons name="emoticon-angry" size={50} />,
+      navigate: () => {
+        navigation.navigate("Behavior");
+      },
     },
     {
       title: "פרטים אישיים",
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   grayContainer: {
-    backgroundColor: "#ECECEC",
+    backgroundColor: "#ffc1bd",
     borderRadius: 30,
     width: 110,
     height: 110,
